@@ -5,14 +5,12 @@ $:.unshift File.join(File.dirname(__FILE__))
 
 require 'date'
 require 'time'
-require 'mongo'
 require 'MeCab'
 require 'json'
 
 class Mapper
   def initialize(day = 0)
     @mecab = MeCab::Tagger.new("-Ochasen")
-    @exclude = Array.new
   end
 
   def map(stdin)
