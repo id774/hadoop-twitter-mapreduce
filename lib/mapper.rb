@@ -15,7 +15,8 @@ class Mapper
 
   def map(stdin)
     stdin.each_line {|line|
-      datetime, tag, json = line.force_encoding("utf-8").strip.split("\t")
+      # datetime, tag, json = line.force_encoding("utf-8").strip.split("\t")
+      json = line.force_encoding("utf-8").scan(/\{.*\}/).join
       JSON.parse(json).each {|k,v|
         if k == "text"
           pickup_nouns(v).each {|word|
