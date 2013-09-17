@@ -4,7 +4,7 @@
 $:.unshift File.join(File.dirname(__FILE__))
 
 class Reducer
-  def self.reduce(stdin)
+  def reduce(stdin)
     key = nil
     hits = 0
 
@@ -12,20 +12,25 @@ class Reducer
       newkey, count = line.strip.split
       if newkey.length > 0
         unless key == newkey
-          puts "#{key}\t#{hits}\n" unless key.nil?
+          reducer_output(key, hits)
           key = newkey
           hits = 0
         end
         hits += count.to_i
       end
     }
-    unless key.nil?
-      puts "#{key}\t#{hits}\n" unless key.nil?
-    end
+    reducer_output(key, hits)
+  end
+
+  private
+
+  def reducer_output(key, hits)
+    puts "#{key}\t#{hits}\n" unless key.nil?
   end
 end
 
 if __FILE__ == $0
   require ARGV.shift || 'cached'
-  Reducer.reduce($stdin)
+  reducer = Reducer.new
+  reducer.reduce($stdin)
 end
