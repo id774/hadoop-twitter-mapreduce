@@ -9,7 +9,7 @@ class Reducer
     hits = 0
 
     stdin.each_line {|line|
-      newkey, count = line.strip.split
+      newkey, count = line.force_encoding("utf-8").strip.split
       if newkey.length > 0
         unless key == newkey
           reducer_output(key, hits)
